@@ -25,14 +25,13 @@ import caffe, os, sys, cv2
 import argparse
 
 CLASSES = ('__background__',
-           'aeroplane', 'bicycle', 'bird', 'boat',
-           'bottle', 'bus', 'car', 'cat', 'chair',
-           'cow', 'diningtable', 'dog', 'horse',
-           'motorbike', 'person', 'pottedplant',
-           'sheep', 'sofa', 'train', 'tvmonitor')
+           'bus', 'car', 'grills', 'lamp',
+           'logo', 'minibus', 'plate', 'truck')
 
 NETS = {'vgg16': ('VGG16',
                   'VGG16_faster_rcnn_final.caffemodel'),
+        'vgg1024': ('VGG_CNN_M_1024',
+                  'vgg_cnn_m_1024_faster_rcnn_iter_70000.caffemodel'),
         'zf': ('ZF',
                   'ZF_faster_rcnn_final.caffemodel')}
 
@@ -106,7 +105,7 @@ def parse_args():
                         help='Use CPU mode (overrides --gpu)',
                         action='store_true')
     parser.add_argument('--net', dest='demo_net', help='Network to use [vgg16]',
-                        choices=NETS.keys(), default='vgg16')
+                        choices=NETS.keys(), default='zf')
 
     args = parser.parse_args()
 
@@ -118,7 +117,7 @@ if __name__ == '__main__':
     args = parse_args()
 
     prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
-                            'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
+                            'faster_rcnn_end2end', 'test.prototxt')
     caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
                               NETS[args.demo_net][1])
 
@@ -142,7 +141,7 @@ if __name__ == '__main__':
         _, _= im_detect(net, im)
 
     im_names = ['000456.jpg', '000542.jpg', '001150.jpg',
-                '001763.jpg', '004545.jpg']
+                '001763.jpg']
     for im_name in im_names:
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         print 'Demo for data/demo/{}'.format(im_name)

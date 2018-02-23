@@ -1,5 +1,10 @@
 *.pyc
+*.pyd
 .ipynb_checkpoints
 lib/build
+lib/dist
+lib/fast_rcnn.egg-info
+lib/py_fast_rcnn_gpu.egg-info
+output*
 lib/pycocotools/_mask.c
 lib/pycocotools/_mask.so
